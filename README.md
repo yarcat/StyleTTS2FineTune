@@ -20,6 +20,10 @@ The scripts are compatible with WSL2 and Linux. Windows requires additional depe
 
 ### Environment Setup
 
+0. Required packages
+    - ffmpeg `sudo apt install ffmpeg`
+    - espeak `sudo apt install espeak`
+
 1. Install conda and activate environment with Python 3.10:
     - conda create --name dataset python==3.10
     - conda activate dataset
@@ -35,9 +39,13 @@ The scripts are compatible with WSL2 and Linux. Windows requires additional depe
     - pip install git+https://github.com/m-bain/whisperx.git
     - pip install phonemizer pydub
 
-## Instal TQDM progress bar
+## Install TQDM progress bar
 
     - pip install tqdm
+
+## Install subtitle and ffmpeg libraries
+
+    - pip install pysrt pyffmpeg
 
 ### Data Preparation
 
@@ -48,7 +56,7 @@ The scripts are compatible with WSL2 and Linux. Windows requires additional depe
 - badAudio
 - segmentedAudio
 - or run
-  - python makeDataset/tools/srtsegmenter.py
+  - `python makeDataset/tools/srtsegmenter.py`
 3. Add WAV audio files to the audio directory (remove special characters, brackets, parenthesis to prevent issues)
 4. Change directory to the srt folder
 5. Run the following command to generate srt files for all files in the audio folder
@@ -58,13 +66,13 @@ The scripts are compatible with WSL2 and Linux. Windows requires additional depe
 ### Segmentation and Transcription
 
 1. Navigate to the main directory (You should see the folder makeDataset)
-2. Run the segmentation script (python makeDataset/tools/srtsegmenter.py:
+2. Run the segmentation script (`python makeDataset/tools/srtsegmenter.py`):
 
 The above steps will generate a set of segmented audio files, a folder of bad audio it didn't like, and an output.txt file. I have it set to throw out segmemts under one second and over 11.6 seconds. You can adjust this to varying degrees. 
 
 ### Phonemization
 
-1. Run the script (python makeDataset/tools/phonemized.py.
+1. Run the script (`python makeDataset/tools/phonemized.py`).
 2. This script will create the train_list.txt and val_list.txt files.
 
 - OOD_list.txt comes from the LibriTTS dataset. The following are some things to consider taken from the notes at https://github.com/yl4579/StyleTTS2/discussions/81. There is a lot of good information there, I suggest looking it over.
@@ -92,7 +100,7 @@ The above steps will generate a set of segmented audio files, a folder of bad au
     - sudo apt-get install espeak-ng
 
 3. Prepare the data and model:
-    - Clear the wavs folder in the data directory and replace with your segmented wav files.
+    - Clear the wavs folder in the Data directory and replace with your segmented wav files.
     - Replace the val_list and train_list files in the Data folder with yours. Keep the OOD_list.txt file.
     - Adjust the parameters in the config_ft.yml file in the Configs folder according to your needs.
 
